@@ -3,14 +3,15 @@ public class Solution {
         if(nums == null || nums.Length < 2)
             return null;
             
-        for (int a = 0; a < nums.Length; a++)
+        Dictionary<int, int> map = new();
+        for (var i = 0; i < nums.Length; i++)
         {
-            for (int b = a + 1; b < nums.Length; b++)
-            {
-                if (nums[a] + nums[b] == target)
-                    return new int[] { a, b };
-            }
+            var pair = target - nums[i];
+            if (map.ContainsKey(pair))
+                return new int [] {map[pair] ,i};
+            
+            map[nums[i]] = i;
         }
-        return null;
+        return null; 
     }
 }
