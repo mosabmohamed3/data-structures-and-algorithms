@@ -5,10 +5,17 @@ public class Solution {
         int n = prices.Length;
         
         for (int i = n-1 ; i >= 0; i--){
-            maxP = Math.Max(maxP, maxSoFar - prices[i]);
-            maxSoFar = Math.Max(maxSoFar, prices[i]);
+            maxP = getMax(maxP, maxSoFar - prices[i]);
+            maxSoFar = getMax(maxSoFar, prices[i]);
         }
         
         return maxP;
+    }
+    
+    private int getMax(int x, int y){
+        if (x > y)
+            return x;
+        else
+            return y;
     }
 }
