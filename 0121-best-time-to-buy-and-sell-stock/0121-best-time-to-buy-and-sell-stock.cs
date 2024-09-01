@@ -1,23 +1,12 @@
 public class Solution {
     public int MaxProfit(int[] prices) {
-        var l = 0;
-        var r = 1;
+        var maxSoFar = prices[prices.Length-1];
         var maxP = 0;
+        int n = prices.Length;
         
-        while(r < prices.Length)
-        {
-            var p = prices[r] - prices[l];
-            
-            if(prices[l] < prices[r] && p > maxP)
-            {
-                maxP = p;
-            }
-            else if(prices[l] > prices[r] || prices[l] == prices[r])
-            {
-                l = r;
-            } 
-            
-            r++;
+        for (int i = n-1 ; i >= 0; i--){
+            maxP = Math.Max(maxP, maxSoFar - prices[i]);
+            maxSoFar = Math.Max(maxSoFar, prices[i]);
         }
         
         return maxP;
