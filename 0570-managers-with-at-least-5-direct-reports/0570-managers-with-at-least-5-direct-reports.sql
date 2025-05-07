@@ -1,4 +1,5 @@
-SELECT DISTINCT m.name
+SELECT m.name
 FROM Employee AS e
 JOIN Employee AS m ON e.managerId = m.id
-WHERE e.managerId IS NOT NULL;
+GROUP BY e.managerId, m.name
+HAVING COUNT(*) >= 5;
