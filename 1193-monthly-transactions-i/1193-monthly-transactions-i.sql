@@ -1,10 +1,19 @@
 /* Write your T-SQL query statement below */
+WITH t1 AS (
+    SELECT
+        FORMAT(trans_date, 'yyyy-MM') AS [month],
+        country,
+        state,
+        amount
+    FROM Transactions
+)
+
 select 
-    FORMAT(t1.trans_date, 'yyyy-MM') [month],
-    t1.country,
+    [month],
+    country,
     count(*) [trans_count],
-    sum(iif(t1.state = 'approved', 1, 0)) [approved_count],
-    sum(ISNULL(t1.amount, 0)) [trans_total_amount],
-    sum(iif(t1.state = 'approved', ISNULL(t1.amount, 0), 0)) [approved_total_amount]
-from Transactions as t1
-group by FORMAT(t1.trans_date, 'yyyy-MM'), t1.country
+    sum(CASE WHEN state = 'approved' Then 1 Else 0 End) [approved_count],
+    sum(ISNULL(amount, 0)) [trans_total_amount],
+    sum(iif(state = 'approved', ISNULL(t1.amount, 0), 0)) [approved_total_amount]
+from t1
+group by [month], t1.country
