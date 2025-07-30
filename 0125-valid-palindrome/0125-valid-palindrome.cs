@@ -1,38 +1,23 @@
 public class Solution {
     public bool IsPalindrome(string s) {
-        
-        int l = 0;
-        int r = s.Length - 1;
-        
-        while (l < r)
+        var l = 0;
+        var r = s.Length - 1;
+
+        while(r>l)
         {
-            while (l < r && !isAlphanumric(s[l]))
-            {
+            while(r>l && !char.IsLetterOrDigit(s[l]))
                 l++;
-            }
-            while (r > l && !isAlphanumric(s[r]))
-            {
-                r--;
-            }
             
-            if (char.ToLower(s[l]) != char.ToLower(s[r]))
+            while(r>l && !char.IsLetterOrDigit(s[r]))
+                r--;
+
+            if(char.ToLower(s[l]) != char.ToLower(s[r]))
                 return false;
             
-            l ++;
-            r --;
+            l++;
+            r--;
         }
-        
+
         return true;
     }
-    
-    
-    
-    
-    
-    private bool isAlphanumric(char c)
-    {
-        return (c >= 'a' && c <= 'z') ||
-               (c >= 'A' && c <= 'Z') ||
-               (c >= '0' && c <= '9');
-    }   
 }
